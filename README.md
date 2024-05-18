@@ -5,7 +5,7 @@ Designed for Payload CMS RichText Lexical editor. Rendering Lexical to React JSX
 ## Install
 
 ```
-npm i @zapal-tech/payload-lexical-react
+npm i @zapal/payload-lexical-react
 ```
 
 ## Basic Usage
@@ -14,7 +14,7 @@ npm i @zapal-tech/payload-lexical-react
 import {
   PayloadLexicalReact,
   PayloadLexicalReactProps
-} from "@zapal-tech/payload-lexical-react";
+} from "@zapal/payload-lexical-react";
 
 const BlogPost = () => {
   const content = await fetchLexicalEditorState();
@@ -37,7 +37,7 @@ styles only. P.S.: You can use it with the `@tailwindcss/typography` package to 
 In order to customize the result, use the `elements` prop to override the default elements rendering behavior:
 
 ```jsx
-import { defaultElements, PayloadLexicalReact } from '@zapal-tech/payload-lexical-react';
+import { defaultElements, PayloadLexicalReact } from '@zapal/payload-lexical-react';
 
 <PayloadLexicalReact
   content={content}
@@ -59,7 +59,7 @@ import { defaultElements, PayloadLexicalReact } from '@zapal-tech/payload-lexica
 To customize rendering of text marks like bold, italic etc., add your own `mark` function:
 
 ```jsx
-import { PayloadLexicalReact } from '@zapal-tech/payload-lexical-react';
+import { PayloadLexicalReact } from '@zapal/payload-lexical-react';
 
 <PayloadLexicalReact
   content={content}
@@ -81,7 +81,7 @@ Payload CMS Lexical RichText Editor comes with BlocksFeature included. You can r
 import {
   BlockNode,
   PayloadLexicalReact,
-} from "@zapal-tech/payload-lexical-react";
+} from "@zapal/payload-lexical-react";
 
 type HorizontalGutter = {
   text: string;
