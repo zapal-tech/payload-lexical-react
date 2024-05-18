@@ -1,6 +1,6 @@
 {
   "name": "@zapal/payload-lexical-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Payload CMS rich text Lexical editor to React JSX renderer",
   "private": false,
   "author": {
