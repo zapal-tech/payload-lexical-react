@@ -6,9 +6,17 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
+const ReactCompilerConfig = {
+  /* ... */
+};
+
 const config: UserConfig = {
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
+      },
+    }),
     dts({
       insertTypesEntry: true,
     }),
