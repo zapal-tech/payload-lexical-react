@@ -1,0 +1,56 @@
+{
+  "name": "next-latest-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "devturbo": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbo",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+    "ci": "payload migrate && pnpm build",
+    "generate:types": "payload generate:types",
+    "standalone-script": "node ./src/scripts/standalone-script.js"
+  },
+  "engines": {
+    "node": "^18.20.2 || >=20.9.0"
+  },
+  "dependencies": {
+    "@payloadcms/db-mongodb": "3.0.0-beta.43",
+    "@payloadcms/db-postgres": "3.0.0-beta.43",
+    "@payloadcms/next": "3.0.0-beta.43",
+    "@payloadcms/richtext-lexical": "3.0.0-beta.43",
+    "@payloadcms/richtext-slate": "3.0.0-beta.43",
+    "@payloadcms/ui": "3.0.0-beta.43",
+    "@zapal/payload-lexical-react": "file:..",
+    "babel-plugin-react-compiler": "latest",
+    "clsx": "^2.1.1",
+    "cross-env": "^7.0.3",
+    "next": "canary",
+    "payload": "3.0.0-beta.43",
+    "react": "rc",
+    "react-dom": "rc",
+    "sharp": "0.33.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.12",
+    "@types/react": "npm:types-react@19.0.0-beta.2",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "canary",
+    "typescript": "^5.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "npm:types-react@19.0.0-beta.2",
+      "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2"
+    }
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-beta.2",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-beta.2"
+  }
+}
