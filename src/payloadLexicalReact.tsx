@@ -2,7 +2,7 @@ import type { SerializedListItemNode, SerializedListNode } from '@lexical/list';
 import type { SerializedHeadingNode, SerializedQuoteNode } from '@lexical/rich-text';
 import type { SerializedAutoLinkNode, SerializedBlockNode, SerializedLinkNode } from '@payloadcms/richtext-lexical';
 import type { SerializedElementNode, SerializedParagraphNode, SerializedTextNode } from 'lexical';
-import { createElement, Fragment, useCallback, type CSSProperties } from 'react';
+import { Fragment, type CSSProperties } from 'react';
 import type { Elements, Mark, Node, PayloadLexicalReactProps, UploadNode } from './types';
 
 // This copy-and-pasted from somewhere in lexical here: https://github.com/facebook/lexical/blob/main/packages/lexical/src/LexicalConstants.ts
@@ -26,8 +26,16 @@ const getElementStyle = ({ indent, format }: Pick<SerializedElementNode, 'format
 };
 
 export const defaultElements: Elements = {
-  heading: (element) => createElement(element.tag, { style: getElementStyle(element) }, element.children),
-  list: (element) => createElement(element.tag, { style: getElementStyle(element) }, element.children),
+  heading: (element) => {
+    const Tag = element.tag;
+
+    return <Tag style={getElementStyle(element)}>element.children</Tag>;
+  },
+  list: (element) => {
+    const Tag = element.tag;
+
+    return <Tag style={getElementStyle(element)}>element.children</Tag>;
+  },
   listItem: (element) => <li style={getElementStyle(element)}>{element.children}</li>,
   paragraph: (element) => <p style={getElementStyle(element)}>{element.children}</p>,
   link: (element) => (
@@ -73,71 +81,62 @@ export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
   mark = defaultMark,
   blocks = {},
 }: PayloadLexicalReactProps<Blocks>) {
-  const renderElement = useCallback(
-    (node: Node, children?: React.ReactNode) => {
-      if (!elements) throw new Error("'elements' prop not provided.");
+  const renderElement = (node: Node, children?: React.ReactNode) => {
+    if (!elements) throw new Error("'elements' prop not provided.");
 
-      if (node.type === 'link' && (node as SerializedLinkNode).fields)
-        return elements.link({ ...(node as SerializedLinkNode), children });
-      if (node.type === 'autolink' && (node as SerializedAutoLinkNode).fields)
-        return elements.autolink({ ...(node as SerializedAutoLinkNode), children });
-      if (node.type === 'heading') return elements.heading({ ...(node as SerializedHeadingNode), children });
-      if (node.type === 'paragraph') return elements.paragraph({ ...(node as SerializedParagraphNode), children });
-      if (node.type === 'list') return elements.list({ ...(node as SerializedListNode), children });
-      if (node.type === 'listitem') return elements.listItem({ ...(node as SerializedListItemNode), children });
-      if (node.type === 'quote') return elements.quote({ ...(node as SerializedQuoteNode), children });
-      if (node.type === '') return elements.lineBreak();
-      if (node.type === 'tab') return elements.tab(node as SerializedTextNode);
-      if (node.type === 'upload') return elements.upload(node as UploadNode);
+    if (node.type === 'link' && (node as SerializedLinkNode).fields)
+      return elements.link({ ...(node as SerializedLinkNode), children });
+    if (node.type === 'autolink' && (node as SerializedAutoLinkNode).fields)
+      return elements.autolink({ ...(node as SerializedAutoLinkNode), children });
+    if (node.type === 'heading') return elements.heading({ ...(node as SerializedHeadingNode), children });
+    if (node.type === 'paragraph') return elements.paragraph({ ...(node as SerializedParagraphNode), children });
+    if (node.type === 'list') return elements.list({ ...(node as SerializedListNode), children });
+    if (node.type === 'listitem') return elements.listItem({ ...(node as SerializedListItemNode), children });
+    if (node.type === 'quote') return elements.quote({ ...(node as SerializedQuoteNode), children });
+    if (node.type === 'linebreak') return elements.lineBreak();
+    if (node.type === 'tab') return elements.tab(node as SerializedTextNode);
+    if (node.type === 'upload') return elements.upload(node as UploadNode);
 
-      throw new Error(`Missing element renderer for node type '${node.type}'`);
-    },
-    [elements],
-  );
+    throw new Error(`Missing element renderer for node type '${node.type}'`);
+  };
 
-  const renderText = useCallback(
-    (node: SerializedTextNode): React.ReactNode | null => {
-      if (!mark) throw new Error("'mark' prop not provided.");
+  const renderText = (node: SerializedTextNode): React.ReactNode | null => {
+    if (!mark) throw new Error("'mark' prop not provided.");
 
-      if (!node.format) return mark({ text: node.text });
+    if (!node.format) return mark({ text: node.text });
 
-      return mark({
-        text: node.text,
-        bold: (node.format & IS_BOLD) > 0,
-        italic: (node.format & IS_ITALIC) > 0,
-        underline: (node.format & IS_UNDERLINE) > 0,
-        strikethrough: (node.format & IS_STRIKETHROUGH) > 0,
-        code: (node.format & IS_CODE) > 0,
-        subscript: (node.format & IS_SUBSCRIPT) > 0,
-        superscript: (node.format & IS_SUPERSCRIPT) > 0,
-        highlight: (node.format & IS_HIGHLIGHT) > 0,
-      });
-    },
-    [mark],
-  );
+    return mark({
+      text: node.text,
+      bold: (node.format & IS_BOLD) > 0,
+      italic: (node.format & IS_ITALIC) > 0,
+      underline: (node.format & IS_UNDERLINE) > 0,
+      strikethrough: (node.format & IS_STRIKETHROUGH) > 0,
+      code: (node.format & IS_CODE) > 0,
+      subscript: (node.format & IS_SUBSCRIPT) > 0,
+      superscript: (node.format & IS_SUPERSCRIPT) > 0,
+      highlight: (node.format & IS_HIGHLIGHT) > 0,
+    });
+  };
 
-  const serialize = useCallback(
-    (children: Node[]): React.ReactNode[] | null =>
-      children.map((node, index) => {
-        if (node.type === 'text') return <Fragment key={index}>{renderText(node as SerializedTextNode)}</Fragment>;
+  const serialize = (children: Node[]): React.ReactNode[] | null =>
+    children.map((node, index) => {
+      if (node.type === 'text') return <Fragment key={index}>{renderText(node as SerializedTextNode)}</Fragment>;
 
-        if (node.type === 'block') {
-          const blockNode = node as SerializedBlockNode;
-          const renderer = blocks[blockNode.fields.blockType] as (props: unknown) => React.ReactNode;
+      if (node.type === 'block') {
+        const blockNode = node as SerializedBlockNode;
+        const renderer = blocks[blockNode.fields.blockType] as (props: unknown) => React.ReactNode;
 
-          if (typeof renderer !== 'function')
-            throw new Error(`Missing block renderer for block type '${blockNode.fields.blockType}'`);
+        if (typeof renderer !== 'function')
+          throw new Error(`Missing block renderer for block type '${blockNode.fields.blockType}'`);
 
-          return <Fragment key={index}>{renderer(node)}</Fragment>;
-        }
+        return <Fragment key={index}>{renderer(node)}</Fragment>;
+      }
 
-        if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload')
-          return <Fragment key={index}>{renderElement(node)}</Fragment>;
+      if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload')
+        return <Fragment key={index}>{renderElement(node)}</Fragment>;
 
-        return <Fragment key={index}>{renderElement(node, serialize((node as any)?.children))}</Fragment>;
-      }),
-    [renderElement, renderText, blocks],
-  );
+      return <Fragment key={index}>{renderElement(node, serialize((node as any)?.children))}</Fragment>;
+    });
 
   return <>{serialize(content.root.children)}</>;
 }

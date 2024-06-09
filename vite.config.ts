@@ -6,21 +6,8 @@ import react from '@vitejs/plugin-react';
 import { defineConfig, UserConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
-const ReactCompilerConfig = {
-  /* ... */
-};
-
 const config: UserConfig = {
-  plugins: [
-    react({
-      babel: {
-        plugins: [['babel-plugin-react-compiler', ReactCompilerConfig]],
-      },
-    }),
-    dts({
-      insertTypesEntry: true,
-    }),
-  ],
+  plugins: [react(), dts({ insertTypesEntry: true })],
   test: {
     globals: true,
     environment: 'jsdom',
@@ -39,10 +26,8 @@ const config: UserConfig = {
     rollupOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
-      external: ['react', 'react-dom'],
+      external: ['react', 'react/jsx-runtime', 'react/compiler-runtime', 'react-dom', 'react-dom/client'],
       output: {
-        // Provide global variables to use in the UMD build
-        // for externalized deps
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
