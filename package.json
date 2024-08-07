@@ -1,6 +1,6 @@
 {
   "name": "@zapal/payload-lexical-react",
-  "version": "1.3.3",
+  "version": "1.4.0",
   "description": "Payload CMS rich text Lexical editor to React JSX renderer",
   "private": false,
   "author": {
@@ -53,15 +53,15 @@
     "test:ui": "vitest --ui"
   },
   "peerDependencies": {
-    "lexical": "0.16 || ^0.17",
+    "lexical": "^0.17",
     "react": "^19 || >19.0.0-rc"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@ianvs/prettier-plugin-sort-imports": "^4.3.0",
-    "@lexical/list": "^0.16.1",
-    "@lexical/rich-text": "^0.16.1",
+    "@lexical/list": "^0.17.0",
+    "@lexical/rich-text": "^0.17.0",
     "@payloadcms/richtext-lexical": "3.0.0-beta.60",
     "@testing-library/dom": "^10.3.1",
     "@testing-library/jest-dom": "^6.4.6",
@@ -78,7 +78,7 @@
     "eslint-plugin-prettier": "^5.1.3",
     "husky": "^9.0.11",
     "jsdom": "^24.1.0",
-    "lexical": "^0.16.1",
+    "lexical": "^0.17.0",
     "lint-staged": "^15.2.7",
     "payload": "3.0.0-beta.60",
     "prettier": "^3.3.2",
