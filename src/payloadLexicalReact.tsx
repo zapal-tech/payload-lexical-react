@@ -29,12 +29,12 @@ export const defaultElements: Elements = {
   heading: (element) => {
     const Tag = element.tag;
 
-    return <Tag style={getElementStyle(element)}>element.children</Tag>;
+    return <Tag style={getElementStyle(element)}>{element.children}</Tag>;
   },
   list: (element) => {
     const Tag = element.tag;
 
-    return <Tag style={getElementStyle(element)}>element.children</Tag>;
+    return <Tag style={getElementStyle(element)}>{element.children}</Tag>;
   },
   listItem: (element) => <li style={getElementStyle(element)}>{element.children}</li>,
   paragraph: (element) => <p style={getElementStyle(element)}>{element.children}</p>,
@@ -118,8 +118,10 @@ export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
     });
   };
 
-  const serialize = (children: Node[]): React.ReactNode[] | null =>
-    children.map((node, index) => {
+  const serialize = (children: Node[]): React.ReactNode[] | null => {
+    if (!children || !Array.isArray(children)) return null;
+
+    return children.map((node, index) => {
       if (node.type === 'text') return <Fragment key={index}>{renderText(node as SerializedTextNode)}</Fragment>;
 
       if (node.type === 'block') {
@@ -137,6 +139,7 @@ export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
 
       return <Fragment key={index}>{renderElement(node, serialize((node as any)?.children))}</Fragment>;
     });
+  };
 
   return <>{serialize(content.root.children)}</>;
 }
