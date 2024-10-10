@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -31,7 +32,7 @@ const content = {
       },
     ],
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 describe('Testing custom quote', async () => {
   render(
@@ -46,27 +47,27 @@ describe('Testing custom quote', async () => {
       }}
       content={content}
     />,
-  );
+  )
 
-  const parent = screen.queryByTestId('parent');
-  const text = parent?.firstChild;
+  const parent = screen.queryByTestId('parent')
+  const text = parent?.firstChild
 
-  screen.debug();
+  screen.debug()
 
   // Post Expectations
   it('Should render the string input inside a <blockquote>', () => {
-    expect(text).toBeInTheDocument();
-  });
+    expect(text).toBeInTheDocument()
+  })
 
   it('Should render the parent div', () => {
-    expect(parent).toBeTruthy();
-  });
+    expect(parent).toBeTruthy()
+  })
 
   it('Should assign a className to the blockquote element', () => {
-    expect(text).toHaveClass('childClassName');
-  });
+    expect(text).toHaveClass('childClassName')
+  })
 
   it('Should assign a className to the parent div', () => {
-    expect(parent).toHaveClass('parentClassName');
-  });
-});
+    expect(parent).toHaveClass('parentClassName')
+  })
+})

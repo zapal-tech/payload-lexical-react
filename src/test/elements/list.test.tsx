@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -208,7 +209,7 @@ const content = {
       },
     ],
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 describe('Testing custom list', async () => {
   render(
@@ -221,39 +222,39 @@ describe('Testing custom list', async () => {
               <ul role="list" aria-label="bullets" className={element.listType}>
                 {element.children}
               </ul>
-            );
+            )
 
           if (element.listType === 'number')
             return (
               <ol role="list" aria-label="numbered" className={element.listType}>
                 {element.children}
               </ol>
-            );
+            )
         },
       }}
       content={content}
     />,
-  );
+  )
 
-  const unorderedLists = screen.getAllByRole('list', { name: 'bullets' });
-  const orderedLists = screen.getAllByRole('list', { name: 'numbered' });
+  const unorderedLists = screen.getAllByRole('list', { name: 'bullets' })
+  const orderedLists = screen.getAllByRole('list', { name: 'numbered' })
 
   it('Should render the ul', () => {
-    unorderedLists.map((ul) => expect(ul).toBeTruthy());
-  });
+    unorderedLists.map((ul) => expect(ul).toBeTruthy())
+  })
 
   it('Should assign a className to the ul', () => {
-    unorderedLists.map((ul) => expect(ul).toHaveClass('bullet'));
-  });
+    unorderedLists.map((ul) => expect(ul).toHaveClass('bullet'))
+  })
 
   it('Should render the ol', () => {
-    orderedLists.map((ol) => expect(ol).toBeTruthy());
-  });
+    orderedLists.map((ol) => expect(ol).toBeTruthy())
+  })
 
   it('Should assign a className to the ol', () => {
-    orderedLists.map((ul) => expect(ul).toHaveClass('number'));
-  });
+    orderedLists.map((ul) => expect(ul).toHaveClass('number'))
+  })
 
   // screen.debug();
-  screen.logTestingPlaygroundURL();
-});
+  screen.logTestingPlaygroundURL()
+})

@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -31,7 +32,7 @@ const content = {
       },
     ],
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 describe('Testing custom heading', async () => {
   render(
@@ -46,31 +47,31 @@ describe('Testing custom heading', async () => {
       }}
       content={content}
     />,
-  );
+  )
 
-  const parent = screen.queryByTestId('parent');
-  const text = parent?.firstChild;
+  const parent = screen.queryByTestId('parent')
+  const text = parent?.firstChild
 
-  screen.debug();
+  screen.debug()
 
   // Post Expectations
   it('Should display the string input', () => {
-    expect(text).toBeInTheDocument();
-  });
+    expect(text).toBeInTheDocument()
+  })
 
   it('Should render the parent div', () => {
-    expect(parent).toBeTruthy();
-  });
+    expect(parent).toBeTruthy()
+  })
 
   it('Should assign a className to the p element', () => {
-    expect(text).toHaveClass('childClassName');
-  });
+    expect(text).toHaveClass('childClassName')
+  })
 
   it('Should assign a className to the parent div', () => {
-    expect(parent).toHaveClass('parentClassName');
-  });
+    expect(parent).toHaveClass('parentClassName')
+  })
 
   it('Should nest correctly', () => {
-    expect(parent?.tagName).not.toBe(/span/i);
-  });
-});
+    expect(parent?.tagName).not.toBe(/span/i)
+  })
+})

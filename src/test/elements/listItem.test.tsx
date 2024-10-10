@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -208,7 +209,7 @@ const content = {
       },
     ],
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 describe('Testing custom listItem', async () => {
   render(
@@ -219,26 +220,26 @@ describe('Testing custom listItem', async () => {
       }}
       content={content}
     />,
-  );
+  )
 
-  const listItems = screen.getAllByRole('listitem');
+  const listItems = screen.getAllByRole('listitem')
 
   it('Should render a list item', () => {
-    listItems.map((li) => expect(li).toBeTruthy());
-  });
+    listItems.map((li) => expect(li).toBeTruthy())
+  })
 
   it('Should assign a className to the list item', () => {
-    listItems.map((li) => expect(li).toHaveClass('listitem'));
-  });
+    listItems.map((li) => expect(li).toHaveClass('listitem'))
+  })
 
   it('Should nest list items correctly', () => {
     listItems.map((li) => {
-      const parent = li.parentElement;
+      const parent = li.parentElement
 
-      if (parent) expect(parent.tagName).toMatch(/(ol|ul)/i);
-      if (!parent) expect(li).toThrow('Cannot use <li> tag outside <ol> or <ul>');
-    });
-  });
+      if (parent) expect(parent.tagName).toMatch(/(ol|ul)/i)
+      if (!parent) expect(li).toThrow('Cannot use <li> tag outside <ol> or <ul>')
+    })
+  })
 
-  screen.debug();
-});
+  screen.debug()
+})

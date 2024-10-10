@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -157,7 +158,7 @@ const content = {
     ],
     direction: 'ltr',
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 /** TODO: Extend link test (current is the default one) */
 
@@ -174,20 +175,20 @@ describe('Testing custom link', async () => {
         ),
       }}
     />,
-  );
+  )
 
-  const newTabLink = screen.getByText('This', { exact: true, selector: 'span' }).parentElement;
+  const newTabLink = screen.getByText('This', { exact: true, selector: 'span' }).parentElement
 
   // Post Expectations
   it('Should render the link', () => {
-    expect(newTabLink).toBeInTheDocument();
-  });
+    expect(newTabLink).toBeInTheDocument()
+  })
 
   it('Should have the correct href', () => {
-    expect(newTabLink).toHaveAttribute('href', 'https://payloadcms.com/');
-  });
+    expect(newTabLink).toHaveAttribute('href', 'https://payloadcms.com/')
+  })
 
   it('Should open in a new tab', () => {
-    expect(newTabLink).toHaveAttribute('target', '_blank');
-  });
-});
+    expect(newTabLink).toHaveAttribute('target', '_blank')
+  })
+})

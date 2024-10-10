@@ -1,2 +1,2 @@
-export * from './payloadLexicalReact';
-export * from './types';
+export * from './payloadLexicalReact'
+export * from './types'

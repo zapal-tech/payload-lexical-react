@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
-import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact';
-import { PayloadLexicalReactContent } from '../../types';
+import { render, screen } from '@testing-library/react'
+import { describe, expect, it } from 'vitest'
+
+import { defaultElements, PayloadLexicalReact } from '../../payloadLexicalReact'
+import { PayloadLexicalReactContent } from '../../types'
 
 const content = {
   root: {
@@ -52,7 +53,7 @@ const content = {
       },
     ],
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 describe('Testing custom upload renderer', async () => {
   it('Should render an img and the alt text', async () => {
@@ -67,18 +68,16 @@ describe('Testing custom upload renderer', async () => {
                 <div role="img">
                   <img src={element.value.url} alt={element.value.alt} />
                 </div>
-              );
+              )
 
             if (typeof element?.value === 'object' && element.value.mimeType === 'application/pdf' && element.value.url)
-              return (
-                <iframe src={element.value.url} title={element.value?.filename || ''} height="100%" width="100%" />
-              );
+              return <iframe src={element.value.url} title={element.value?.filename || ''} height="100%" width="100%" />
           },
         }}
       />,
-    );
-    expect(screen.getByAltText('This is an alt text')).toBeInTheDocument();
-  });
+    )
+    expect(screen.getByAltText('This is an alt text')).toBeInTheDocument()
+  })
 
   it('Should render an iframe tag with height and width attributes', async () => {
     render(
@@ -90,19 +89,19 @@ describe('Testing custom upload renderer', async () => {
             if (typeof element?.value === 'object' && element.value.mimeType === 'image/jpeg' && element.value.url)
               <div role="img">
                 <img src={element.value.url} alt={element.value.alt} />
-              </div>;
+              </div>
 
             if (typeof element?.value === 'object' && element.value.mimeType === 'application/pdf' && element.value.url)
-              return <iframe src={element.value.url} title={element.value.filename || ''} height="100%" width="100%" />;
+              return <iframe src={element.value.url} title={element.value.filename || ''} height="100%" width="100%" />
           },
         }}
       />,
-    );
+    )
 
-    const pdfDoc = screen.getByTitle(/dummy.pdf/i);
+    const pdfDoc = screen.getByTitle(/dummy.pdf/i)
 
-    expect(pdfDoc).toBeInTheDocument();
-    expect(pdfDoc).toHaveAttribute('height');
-    expect(pdfDoc).toHaveAttribute('width');
-  });
-});
+    expect(pdfDoc).toBeInTheDocument()
+    expect(pdfDoc).toHaveAttribute('height')
+    expect(pdfDoc).toHaveAttribute('width')
+  })
+})

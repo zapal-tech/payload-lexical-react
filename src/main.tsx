@@ -1,7 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { PayloadLexicalReact } from './payloadLexicalReact';
-import { PayloadLexicalReactContent } from './types';
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+
+import { PayloadLexicalReact } from './payloadLexicalReact'
+import { PayloadLexicalReactContent } from './types'
 
 const content = {
   root: {
@@ -783,7 +784,7 @@ const content = {
     ],
     direction: 'ltr',
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 const content2 = {
   root: {
@@ -1381,23 +1382,23 @@ const content2 = {
     ],
     direction: 'ltr',
   },
-} as any as PayloadLexicalReactContent;
+} as unknown as PayloadLexicalReactContent
 
 type Intro = {
-  text: string;
-  position: 'left' | 'right';
-};
+  text: string
+  position: 'left' | 'right'
+}
 
 type Code = {
-  title: string;
-  content: string;
-  language: string;
-};
+  title: string
+  content: string
+  language: string
+}
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <PayloadLexicalReact<{
-      intro: Intro;
+      intro: Intro
     }>
       content={content}
       blocks={{
@@ -1415,7 +1416,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     />
 
     <PayloadLexicalReact<{
-      code: Code;
+      code: Code
     }>
       content={content2}
       blocks={{
@@ -1427,4 +1428,4 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       }}
     />
   </React.StrictMode>,
-);
+)
