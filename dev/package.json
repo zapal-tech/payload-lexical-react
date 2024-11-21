@@ -1,5 +1,5 @@
 {
-  "name": "next-latest-starter",
+  "name": "@zapal/payload-lexical-react-dev",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -16,24 +16,24 @@
     "standalone-script": "node ./src/scripts/standalone-script.js"
   },
   "engines": {
-    "node": "^18.20.2 || >=20.9.0"
+    "node": ">=20.9.0"
   },
   "dependencies": {
-    "@payloadcms/db-mongodb": "3.0.0-beta.112",
-    "@payloadcms/db-postgres": "3.0.0-beta.112",
-    "@payloadcms/next": "3.0.0-beta.112",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.112",
-    "@payloadcms/richtext-slate": "3.0.0-beta.112",
-    "@payloadcms/ui": "3.0.0-beta.112",
+    "@payloadcms/db-mongodb": "^3.0.2",
+    "@payloadcms/db-postgres": "^3.0.2",
+    "@payloadcms/next": "^3.0.2",
+    "@payloadcms/richtext-lexical": "^3.0.2",
+    "@payloadcms/richtext-slate": "^3.0.2",
+    "@payloadcms/ui": "^3.0.2",
     "@zapal/payload-lexical-react": "file:..",
     "babel-plugin-react-compiler": "latest",
     "clsx": "^2.1.1",
     "cross-env": "^7.0.3",
-    "next": "15.0.0-canary.173",
-    "payload": "3.0.0-beta.112",
+    "next": "15.0.3",
+    "payload": "^3.0.2",
     "react": "rc",
     "react-dom": "rc",
-    "sharp": "0.33.4"
+    "sharp": "0.33.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
