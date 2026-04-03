@@ -112,7 +112,7 @@ export type PayloadLexicalReactContent = SerializedEditorState
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PayloadLexicalReactProps<Blocks extends { [key: string]: any }> = {
   content: PayloadLexicalReactContent
-  elements?: Elements
+  elements?: Partial<Elements>
   mark?: Mark
   blocks?: {
     [BlockName in Extract<keyof Blocks, string>]?: (props: BlockNode<Blocks[BlockName], BlockName>) => React.ReactNode

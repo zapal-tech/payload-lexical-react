@@ -86,13 +86,13 @@ export const defaultMark: Mark = ({ text, ...mark }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
   content,
-  elements = defaultElements,
+  elements: elementsProp,
   mark = defaultMark,
   blocks = {},
 }: PayloadLexicalReactProps<Blocks>) {
-  const renderElement = (node: Node, children?: React.ReactNode) => {
-    if (!elements) throw new Error("'elements' prop not provided.")
+  const elements: Elements = { ...defaultElements, ...elementsProp }
 
+  const renderElement = (node: Node, children?: React.ReactNode) => {
     if (node.type === 'link' && (node as SerializedLinkNode).fields)
       return elements.link({ ...(node as SerializedLinkNode), children })
     if (node.type === 'autolink' && (node as SerializedAutoLinkNode).fields)
