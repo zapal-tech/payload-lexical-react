@@ -31,6 +31,10 @@ const content = {
         tag: 'h1',
       },
       {
+        type: 'horizontalrule',
+        version: 1,
+      },
+      {
         children: [
           {
             detail: 0,

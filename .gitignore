@@ -29,3 +29,4 @@ yarn-error.log*
 *.tsbuildinfo
 
 .pnpm-store/
+package-lock.json

@@ -1,7 +1,12 @@
 import type { SerializedListItemNode, SerializedListNode } from '@lexical/list'
 import type { SerializedHeadingNode, SerializedQuoteNode } from '@lexical/rich-text'
-import type { SerializedAutoLinkNode, SerializedBlockNode, SerializedLinkNode } from '@payloadcms/richtext-lexical'
-import type { SerializedElementNode, SerializedParagraphNode, SerializedTextNode } from 'lexical'
+import type {
+  SerializedAutoLinkNode,
+  SerializedBlockNode,
+  SerializedLinkNode,
+  SerializedRelationshipNode,
+} from '@payloadcms/richtext-lexical'
+import type { SerializedElementNode, SerializedParagraphNode, SerializedTabNode, SerializedTextNode } from 'lexical'
 import { Fragment, type CSSProperties } from 'react'
 
 import type { Elements, Mark, Node, PayloadLexicalReactProps, UploadNode } from './types'
@@ -51,7 +56,9 @@ export const defaultElements: Elements = {
   ),
   quote: (element) => <blockquote style={getElementStyle(element)}>{element.children}</blockquote>,
   lineBreak: () => <br />,
+  horizontalRule: () => <hr />,
   tab: () => <br />,
+  relationship: () => null,
   upload: (element) => {
     if (typeof element.value === 'object' && element.value.url && element.value.mimeType?.includes('image'))
       return <img src={element.value.url} alt={element.value.alt} />
@@ -79,13 +86,13 @@ export const defaultMark: Mark = ({ text, ...mark }) => {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
   content,
-  elements = defaultElements,
+  elements: elementsProp,
   mark = defaultMark,
   blocks = {},
 }: PayloadLexicalReactProps<Blocks>) {
-  const renderElement = (node: Node, children?: React.ReactNode) => {
-    if (!elements) throw new Error("'elements' prop not provided.")
+  const elements: Elements = { ...defaultElements, ...elementsProp }
 
+  const renderElement = (node: Node, children?: React.ReactNode) => {
     if (node.type === 'link' && (node as SerializedLinkNode).fields)
       return elements.link({ ...(node as SerializedLinkNode), children })
     if (node.type === 'autolink' && (node as SerializedAutoLinkNode).fields)
@@ -96,7 +103,9 @@ export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
     if (node.type === 'listitem') return elements.listItem({ ...(node as SerializedListItemNode), children })
     if (node.type === 'quote') return elements.quote({ ...(node as SerializedQuoteNode), children })
     if (node.type === 'linebreak') return elements.lineBreak()
-    if (node.type === 'tab') return elements.tab(node as SerializedTextNode)
+    if (node.type === 'horizontalrule') return elements.horizontalRule()
+    if (node.type === 'tab') return elements.tab(node as SerializedTabNode)
+    if (node.type === 'relationship') return elements.relationship(node as SerializedRelationshipNode)
     if (node.type === 'upload') return elements.upload(node as UploadNode)
 
     throw new Error(`Missing element renderer for node type '${node.type}'`)
@@ -136,7 +145,13 @@ export function PayloadLexicalReact<Blocks extends { [key: string]: any }>({
         return <Fragment key={index}>{renderer(node)}</Fragment>
       }
 
-      if (node.type === 'linebreak' || node.type === 'tab' || node.type === 'upload')
+      if (
+        node.type === 'linebreak' ||
+        node.type === 'horizontalrule' ||
+        node.type === 'tab' ||
+        node.type === 'relationship' ||
+        node.type === 'upload'
+      )
         return <Fragment key={index}>{renderElement(node)}</Fragment>
 
       return (
