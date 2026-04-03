@@ -28,4 +28,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-.pnpm-store/
+.pnpm-store/package-lock.json
