@@ -23,7 +23,8 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
 
       - name: Install dependencies
@@ -35,15 +36,5 @@ jobs:
       - name: Lint
         run: pnpm lint
 
-      - name: Creating .npmrc with token
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
       - name: Publish to npm
-        run: pnpm publish
-        env:
-          NPM_CONFIG_PROVENANCE: true
+        run: pnpm publish --provenance
