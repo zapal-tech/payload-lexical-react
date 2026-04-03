@@ -4,7 +4,9 @@ import type {
   BlockFields,
   SerializedAutoLinkNode,
   SerializedBlockNode,
+  SerializedHorizontalRuleNode,
   SerializedLinkNode,
+  SerializedRelationshipNode,
   SerializedUploadNode,
 } from '@payloadcms/richtext-lexical'
 import type {
@@ -81,7 +83,9 @@ export type Node =
   | SerializedQuoteNode
   | SerializedLineBreakNode
   | SerializedTabNode
+  | SerializedHorizontalRuleNode
   | SerializedLinkNode
+  | SerializedRelationshipNode
   | UnknownBlockNode
   | BlockNode<Record<string, unknown>, string>
   | SerializedAutoLinkNode
@@ -94,8 +98,10 @@ export type Elements = {
   list: (props: PropsWithChildren<Omit<SerializedListNode, 'children'>>) => React.ReactNode
   listItem: (props: PropsWithChildren<Omit<SerializedListItemNode, 'children'>>) => React.ReactNode
   lineBreak: () => React.ReactNode
+  horizontalRule: () => React.ReactNode
   quote: (props: PropsWithChildren<Omit<SerializedQuoteNode, 'children'>>) => React.ReactNode
   tab: (props: PropsWithChildren<Omit<SerializedTabNode, 'children'>>) => React.ReactNode
+  relationship: (props: SerializedRelationshipNode) => React.ReactNode
   upload: (props: UploadNode) => React.ReactNode
 }
 
