@@ -42,6 +42,8 @@
   ],
   "scripts": {
     "build": "tsc && vite build",
+    "check-updates": "pnpm dlx taze major",
+    "check-updates:minor": "pnpm dlx taze minor",
     "dev": "vite",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,json,json5,html,gql,graphql,md,css,scss}\"",
     "lint": "eslint src",
