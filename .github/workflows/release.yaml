@@ -23,9 +23,9 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 
-          registry-url: 'https://registry.npmjs.org'
-          cache: 'pnpm'
+          node-version: 24
+          registry-url: "https://registry.npmjs.org"
+          cache: "pnpm"
 
       - name: Install dependencies
         run: pnpm i
@@ -37,4 +37,4 @@ jobs:
         run: pnpm lint
 
       - name: Publish to npm
-        run: pnpm publish --provenance
+        run: pnpm publish
